@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const environment = require('dotenv');
 const cors = require('cors');
 
+const Admin = require('./App/Admin/routes');
+
 environment.config();
 
 const app = express();
@@ -37,6 +39,8 @@ app.use(session({
     resave: true,
     cookie: { maxAge: 3600000 }
 }));
+
+app.use('/api/admin', Admin);
 
 app.use(function (err, req, res, next) {
   if(err.message)
