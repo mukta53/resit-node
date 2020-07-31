@@ -3,6 +3,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morganLogger = require('morgan');
+const mongoose = require('mongoose');
 const environment = require('dotenv');
 const cors = require('cors');
 
@@ -12,6 +13,15 @@ const app = express();
 
 app.options('*', cors());
 app.use(cors());
+
+const run = async () => {
+  await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    });
+}
+run();
 
 app.use(morganLogger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
