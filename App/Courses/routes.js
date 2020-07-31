@@ -1,10 +1,11 @@
 const express = require('express');
 const Controller = require('./controller');
+const Middleware = require('../../Functions/Middlewares');
 
 const router = express.Router();
 
-router.post('/',Controller.Create);
-router.get('/', Controller.List);
-router.get('/list', Controller.distict);
+router.post('/', Middleware.adminAuthentication, Controller.Create);
+router.get('/', Middleware.authenticateToken, Controller.List);
+router.get('/list', Middleware.authenticateToken, Controller.distict);
 
 module.exports = router;
