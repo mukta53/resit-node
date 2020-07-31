@@ -8,6 +8,8 @@ const environment = require('dotenv');
 const cors = require('cors');
 
 const Admin = require('./App/Admin/routes');
+const Users = require('./App/Users/routes');
+const Courses = require('./App/Courses/routes');
 
 environment.config();
 
@@ -41,6 +43,8 @@ app.use(session({
 }));
 
 app.use('/api/admin', Admin);
+app.use('/api/users', Users);
+app.use('/api/courses', Courses);
 
 app.use(function (err, req, res, next) {
   if(err.message)
